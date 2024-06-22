@@ -2,6 +2,8 @@ import std/math
 import strutils
 import std/strformat
 
+import account
+
 
 echo "****************************************"
 echo "\n***** Welcome to Finance Tracker *****\n\n"
@@ -13,12 +15,11 @@ echo "[3] cancel your account"
 echo "Enter your choice and press Enter"
 let optionResult = readLine(stdin).parseInt()
 
-
 if optionResult == 1:
-   discard
+   #createAccount()
 elif optionResult == 2:
-   discard
+   #getAccount()
 elif optionResult == 3:
-   discard
+   #cancelAccount()
 else:
    echo "Please enter a valid option"
