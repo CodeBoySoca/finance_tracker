@@ -1,34 +1,55 @@
 import nimcrypto
+import strutils
 import db_connector/db_sqlite
 
-proc createAccount*(username: string, fullname: string,  password: string, salary: int)=
+type
+   Account* = object
+      username*: string
+      fullname*: string
+      password*: string
+      salary*: int
+
+type
+   Expense* = object
+      name*: string
+      amount*: int
+      user_id*: int
+        
+
+
+proc createAccount*(userAccount: Account)=
    let db = open("accounts.db", "", "", "")
-   db.exec(sql"INSERT INTO user (username, fullname, password, salary) VALUES (?, ?, ?, ?)", username, fullname, keccak_256.digest(password), salary)
+   db.exec(sql"INSERT INTO user (username, fullname, password, salary) VALUES (?, ?, ?, ?)", userAccount.username, userAccount.fullname, keccak_256.digest(userAccount.password), userAccount.salary)
    db.close()
     
-# proc getAccount*(username: string, password: string): string  =
-#     for x in db.fastRows(sql"SELECT (user_id) FROM user WHERE username=? AND password=?", username, keccak_256.digest(password)):
-#         echo x
+proc getAccount*(username: string, password: string): int =
+    let db = open("accounts.db", "", "", "")
+    var userId: int
+    for x in db.fastRows(sql"SELECT (user_id) FROM user WHERE username=? AND password=?", username, keccak_256.digest(password)):
+        userId = x[0].parseInt()
+    return userId
 
+proc saveExpense*(expenseReport: seq[Expense])=
+    let db = open("accounts.db", "", "", "")
+    for expense in expenseReport:
+        db.exec(sql"INSERT INTO debts (name, amount, user_id) VALUES(?, ?, ?)", expense.name, expense.amount, expense.user_id)
 
-
+    
 proc cancelAccount*(username: string, password: string)=
    discard
 
-proc saveExpense()=
-   discard
 
-proc expenseReport()=
+proc expenseReport*()=
     discard
 
-proc addExpense()=
+proc addExpense*()=
     discard
 
-proc addSavings()=
+proc addSavings*()=
     discard
 
-proc percentageCalculator()=
+proc percentageCalculator*()=
     discard
 
-proc generatePDF()=
+proc generatePDF*()=
     discard
