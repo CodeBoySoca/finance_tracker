@@ -41,7 +41,7 @@ if optionResult == 1:
     echo "Next, to help you manage your money, we will need to know your monthly salary after taxes(ex. 5000)\n"
     stdout.write("salary:$ ")
     let salary: int = readLine(stdin).parseInt()
-    let formattedSalary: int = fmt"{salary}00".parseInt()
+    let formattedSalary: int = fmt"{salary}".parseInt()
     account.salary = formattedSalary
     echo "\n"
     createAccount(account)
@@ -71,26 +71,26 @@ if optionResult == 1:
             expenseResult.add(expenses)
             if exitMainMenu == 2:
                 saveExpense(expenseResult)
-                break
-
-
-
-    #expense menu
-    # echo "Great, your expense has been saved. What do you want to do next?"
-    # echo "[1] add another expense"
-    # echo "[2] view your expense report"
-    # echo "[3] add savings"
-    # echo "[4] exit"
-    # echo "Enter your choice and press Enter "
-    # let option = readLine(stdin).parseInt()
-    # if option == 1:
-    #    discard
-    # elif option == 2:
-    #    discard
-    # elif option == 3:
-    #    discard  
-    # else:
-    #    discard
+    
+                #expense menu
+                echo "Great, your expense(s) has been saved. What do you want to do next?\n"
+                echo "[1] add another expense"
+                echo "[2] view your expense report"
+                echo "[3] add savings"
+                echo "[4] exit"
+                echo "Enter your choice and press Enter "
+                stdout.write(":")
+                let option = readLine(stdin).parseInt()
+                echo "\n"
+                if option == 1:
+                   discard
+                elif option == 2:
+                   viewExpenseReport(userId)
+                   break
+                elif option == 3:
+                   discard  
+                else:
+                   discard
 
 
 
